@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Travel Itinerary</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f4f6f8;
+    }
+
+    header {
+      background-color: #0078d4;
+      color: white;
+      text-align: center;
+      padding: 25px;
+      box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
+    }
+
+    .flip-card {
+      background-color: transparent;
+      perspective: 1000px;
+      margin-bottom: 25px;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      backface-visibility: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .flip-card-front img {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .flip-card-back {
+      background-color: white;
+      color: #333;
+      transform: rotateY(180deg);
+      padding: 20px;
+    }
+
+    footer {
+      text-align: center;
+      background-color: #0078d4;
+      color: white;
+      padding: 15px;
+      margin-top: 40px;
+    }
+
+    .container {
+      margin-top: 30px;
+      margin-bottom: 50px;
+      padding-left: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Manali Travel Itinerary</h1>
+    <p>Plan your 5-day trip to Manali</p>
+  </header>
+
+  <main class="container">
+    <section aria-label="itinerary cards">
+      <div class="row">
+    
+        <div class="col-md-4">
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="images/welcome.jpg" alt="Welcome">
+              </div>
+              <div class="flip-card-back">
+                <h5>Day 1 - Arrival at Manali</h5>
+                <p>Check-in at the hotel, relax, eat local specialities and take a short evening walk nearby.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="images/hidimba-temple.jpeg" alt="Hidimba Temple">
+              </div>
+              <div class="flip-card-back">
+                <h5>Day 2 - Sightseeing</h5>
+                <p>Visit Hidimba Temple, Vashisht Hot Springs, Manali Nature Park and such local sight-seeing places.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="images/extreme sports.jpeg" alt="Extreme Sports">
+              </div>
+              <div class="flip-card-back">
+                <h5>Day 3 - Extreme Sports</h5>
+                <p>Enjoy extreme sports like paragliding,river rafting, skiing, snow activities, etc.. in Manali.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="images/rohtang pass.jpeg" alt="Rohtang Pass">
+              </div>
+              <div class="flip-card-back">
+                <h5>Day 4 - Rohtang Pass</h5>
+                <p>Drive through the Rohtang Pass and enjoy the snow-covered landscapes and nature.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="flip-card">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="images/departure.jpeg" alt="Departure">
+              </div>
+              <div class="flip-card-back">
+                <h5>Day 5 - Departure</h5>
+                <p>Spend a silent morning, shop for gifts, and leave for home with memories.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section aria-label="add destination" class="mt-5">
+      <h4>Add a Destination</h4>
+      <form id="extraForm" class="mt-3">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" id="title" class="form-control" placeholder="e.g., Day 3 - River Trek" required>
+        </div>
+        <div class="mb-3">
+          <label for="Desc" class="form-label">Description</label>
+          <textarea id="Desc" class="form-control" rows="3" placeholder="Describe your plan..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Plan</button>
+      </form>
+    </section>
+
+    <section class="mt-4">
+      <h4>Added Plans:</h4>
+      <ul id="Plan-List" class="list-group"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Manali Itinerary</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('extraForm');
+    const list = document.getElementById('Plan-List');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const title = document.getElementById('title').value.trim();
+      const desc = document.getElementById('Desc').value.trim();
+
+      if(title && desc) {
+        const li = document.createElement('li');
+        li.classList.add('list-group-item');
+        li.innerHTML = '<b>' + title + '</b><br>' + desc;
+        list.appendChild(li);
+        form.reset();
+      } else {
+        alert("Please fill in all fields");
+      }
+    });
+  </script>
+</body>
+</html>
